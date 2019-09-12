@@ -16,8 +16,6 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject lowerPipe;
     public float time;
     public AudioSource sound;
-    public Text pointsText;
-    public float pointsAmount;
 
 
     // Start is called before the first frame update
@@ -30,7 +28,6 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pointsText.text = "Score: " + pointsAmount.ToString("0.0") + "m";
         yta += time;
         time -= Time.deltaTime;
         if (time <= 0)
@@ -48,17 +45,6 @@ public class NewBehaviourScript : MonoBehaviour
             }
             obstacles.Add(typ);
             time = 3;
-        }
-
-        if (hasStarted)
-        {
-            if (!hasLost)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    rb.AddForce(Vector3.up * 250);
-                }
-            }
         }
 
         if (hasLost)
@@ -80,13 +66,6 @@ public class NewBehaviourScript : MonoBehaviour
         {
             Destroy(obstacles[0]);
             obstacles.RemoveAt(0);
-        }
-        if (hasStarted)
-        {
-            if (!hasLost)
-            {
-                pointsAmount += 1 * Time.deltaTime;
-            }
         }
         for (int i = 0; i < obstacles.Count; i++)
         {
@@ -110,20 +89,11 @@ public class NewBehaviourScript : MonoBehaviour
             
         }
 
-        if (!hasStarted)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                hasStarted = true;
-                rb.AddForce(Vector3.up * 250);
-            }
-        }
-
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "DONTTOUCH")
+        if (collision.transform.tag == "Obstacle")
         {
             hasLost = true;
         }
