@@ -6,6 +6,7 @@ public class Movement : MonoBehaviour
     public Rigidbody rb;
     public bool gameStarted;
     public bool gameOver;
+    public float jumpForce = 150f;
     #endregion
 
     // Start is called on the frame when a script is enabled just before
@@ -54,7 +55,7 @@ public class Movement : MonoBehaviour
 
     void Move()
     {
-        rb.AddForce(Vector3.up * 150f);
+        rb.AddForce(Vector3.up * jumpForce);
     }
     
     void Die()
