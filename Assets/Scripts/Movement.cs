@@ -8,10 +8,9 @@ public class Movement : MonoBehaviour
     public bool gameOver;
     #endregion
 
-    // Start is called before the first frame update
+    // Start is called on the frame when a script is enabled just before
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -19,20 +18,23 @@ public class Movement : MonoBehaviour
     {
         if (!gameStarted)
         {
+            rb.constraints = RigidbodyConstraints.FreezePosition;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
             {
                 gameStarted = true;
-                rb.AddForce(Vector3.up * 250f);
+                Move();
             }
         }
-
         if (gameStarted)
         {
             if (!gameOver)
             {
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    rb.AddForce(Vector3.up * 250f);
+                {   
+                    rb.constraints = RigidbodyConstraints.None;
+                    rb.constraints = RigidbodyConstraints.FreezeRotation;
+                    Move();
                 }
             }
         }
@@ -42,8 +44,20 @@ public class Movement : MonoBehaviour
     {
         if (collision.transform.tag == "Obstacle")
         {
-            gameOver = true;
+            Die();
         }
+    }
+
+    void Move()
+    {
+        rb.AddForce(Vector3.up * 150f);
+    }
+    
+    void Die()
+    {
+        gameOver = true;
+        rb.constraints = RigidbodyConstraints.FreezePosition;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 }
 
