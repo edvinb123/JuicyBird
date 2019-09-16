@@ -29,11 +29,7 @@ public class Movement : MonoBehaviour
         if (gameStarted)
         {
             print("hej");
-            rb.constraints = RigidbodyConstraints.FreezePositionZ |  RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX;;
-            //rb.constraints &= RigidbodyConstraints.FreezeRotation;
-           // rb.constraints &= ~RigidbodyConstraints.FreezePositionX;
-           // rb.constraints = RigidbodyConstraints.FreezePositionX;
-           // rb.constraints = RigidbodyConstraints.FreezePositionZ;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX;;
             if (!gameOver)
             {
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
