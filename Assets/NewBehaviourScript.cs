@@ -58,7 +58,6 @@ public class NewBehaviourScript : MonoBehaviour
                 sound.Play();
             }
             
-            rb.constraints = RigidbodyConstraints.FreezePosition;
             Debug.Log("lost");
         }
 
@@ -75,15 +74,12 @@ public class NewBehaviourScript : MonoBehaviour
 
         if (!hasStarted)
         {
-            rb.constraints = RigidbodyConstraints.FreezePosition;
             Debug.Log("Not started");
         }
         else
         {
             if (!hasLost)
             {
-                rb.constraints = RigidbodyConstraints.None;
-                rb.constraints = RigidbodyConstraints.FreezeRotation;
                 Debug.Log("started");
             }
             
