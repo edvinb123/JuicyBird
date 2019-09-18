@@ -7,11 +7,14 @@ public class Movement : MonoBehaviour
     public bool gameStarted;
     public bool gameOver;
     public float jumpForce = 150f;
+    Vector3 EulerAngleVelocity0;
+    Vector3 EulerAngleVelocity1;
     #endregion
 
     // Start is called on the frame when a script is enabled just before
     void Start()
     {
+        EulerAngleVelocity0 = new Vector3(0, 0, -100);
     }
 
     // Update is called once per frame
@@ -30,7 +33,7 @@ public class Movement : MonoBehaviour
         if (gameStarted)
         {
             print("hej");
-            rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX;;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ  | RigidbodyConstraints.FreezePositionX;;
             if (!gameOver)
             {
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
@@ -39,8 +42,19 @@ public class Movement : MonoBehaviour
                 }
             }
         }
+
     }
-    
+
+    void FixedUpdate()
+    {
+        Quaternion deltaRotation = Quaternion.Euler(EulerAngleVelocity0 * Time.deltaTime);
+
+        if (rb.velocity.y < 0)
+        {
+            rb.MoveRotation(rb.rotation * deltaRotation);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Obstacle")
@@ -52,6 +66,7 @@ public class Movement : MonoBehaviour
     void Move()
     {
         rb.AddForce(Vector3.up * jumpForce);
+        rb.rotation = Quaternion.Euler(0, 0, 40);
     }
     
     void Die()
