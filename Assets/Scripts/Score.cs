@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
     #region  Variables
-    public Text scoreText;
+    private Text scoreText;
     private float scorePoints;
     private bool move1;
     private bool move2;
@@ -16,14 +16,15 @@ public class Score : MonoBehaviour
     {
         move1 = GetComponent<Movement>().gameOver;
         move2 = GetComponent<Movement>().gameStarted;
+        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         scoreText.text = "Score: " + scorePoints.ToString("0");
 
         if (!move1 && move2)
         {
-            print ("on point");
             if (!playerGotPast && GameObject.Find("Player").transform.position.x > transform.position.x)
             {
-                scorePoints ++;
+                print ("SCORE!");
+                scorePoints += 1;
                 playerGotPast = true;
             }
         }
