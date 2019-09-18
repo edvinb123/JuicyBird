@@ -8,22 +8,24 @@ public class Score : MonoBehaviour
     private float scorePoints;
     private bool move1;
     private bool move2;
+    private bool playerGotPast;
     #endregion
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()
     {
         move1 = GetComponent<Movement>().gameOver;
         move2 = GetComponent<Movement>().gameStarted;
-        scoreText.text = "Score: " + scorePoints.ToString("0.0") + "m";
+        scoreText.text = "Score: " + scorePoints.ToString("0");
 
         if (!move1 && move2)
         {
-            scorePoints += 1 * Time.deltaTime;
+            print ("on point");
+            if (!playerGotPast && GameObject.Find("Player").transform.position.x > transform.position.x)
+            {
+                scorePoints ++;
+                playerGotPast = true;
+            }
         }
     }
 }
